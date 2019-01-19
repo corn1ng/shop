@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <title>java</title>
+
+</head><body>
+
+<div th:replace="fragments/header :: header"/>
+
+</div><div class="g-doc">
+    <div class="n-show f-cb" id="showContent">
+        <div class="img"><img th:src="@{'/image/'+${good.picurl}}" alt="" ></div>
+        <div class="cnt">
+            <h2 th:text="${good.title}"></h2>
+            <p class="summary" th:text="${good.abstra}"></p>
+            <div class="price">
+                <span class="v-unit">¥</span><span class="v-value" th:text="${good.price}"></span>
+            </div>
+            <div class="oprt f-cb">
+                <a th:href="@{'~/edit/' + ${good.id}}" class="u-btn u-btn-primary">编 辑</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="m-tab m-tab-fw m-tab-simple f-cb">
+        <h2>详细信息</h2>
+    </div>
+    <div class="n-detail" th:text="${good.content}">
+
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

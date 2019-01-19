@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <title>java</title>
+
+</head><body>
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="g-doc">
+    <div class="m-tab m-tab-fw m-tab-simple f-cb">
+        <div class="tab">
+            <ul>
+                <li class="z-sel" ><a href="/">所有内容</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="n-plist">
+        <ul class="f-cb" id="plist">
+            <li th:each="good:${goods}" th:id="${good.id}">
+                <a th:href="'/show/' +${good.id}" class="link">
+                    <div class="img"><img  th:src="@{'/image/'+${good.picurl}}" th:alt="${good.title}"></div>
+                    <h3 th:text="${good.title}"></h3>
+                    <div class="price"><span class="v-unit">¥</span><span class="v-value" th:text="${good.price}"></span></div>
+                    <span class="had"><b>已售出</b></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"/>
+</body>
+</html>
