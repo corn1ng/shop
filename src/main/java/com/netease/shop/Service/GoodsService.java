@@ -10,4 +10,6 @@ public interface GoodsService {
 
     Goods selectByPrimaryKey(Integer id);
 
+    int updateByPrimaryKey(Goods goods);
+
 }

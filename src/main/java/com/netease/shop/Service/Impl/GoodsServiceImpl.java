@@ -26,4 +26,9 @@ public class GoodsServiceImpl implements GoodsService {
 
         return goodsMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public int updateByPrimaryKey(Goods goods) {
+        return goodsMapper.updateByPrimaryKey(goods);
+    }
 }
