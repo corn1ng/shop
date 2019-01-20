@@ -32,6 +32,10 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="selectidBytitle" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select id from goods where title= #{title,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectAllGoods" resultMap="BaseResultMap">
     select
     id, title, abstra, picurl, content, price

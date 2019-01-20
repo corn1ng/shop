@@ -55,6 +55,23 @@ public class HomeController {
 
     }
 
+    @RequestMapping(value = "/newgood",method = RequestMethod.GET)
+    public String newgood()
+    {
+        return "seller/newgood";
+    }
+
+
+    @RequestMapping(value = "/newgood",method = RequestMethod.POST)
+    public String newgoodpost(Goods goods,Model model)
+    {
+        String title =goods.getTitle();
+        goodsService.insert(goods);
+        Integer id = goodsService.selectidBytitle(title);
+        model.addAttribute("id",id);
+        System.out.println(id);
+        return "seller/publishsuccess";
+    }
 
 
     // 上传照片

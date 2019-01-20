@@ -12,4 +12,8 @@ public interface GoodsService {
 
     int updateByPrimaryKey(Goods goods);
 
+    int insert(Goods record);
+
+    Integer selectidBytitle(String url);
+
 }

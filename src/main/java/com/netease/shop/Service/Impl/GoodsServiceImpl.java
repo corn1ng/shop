@@ -31,4 +31,14 @@ public class GoodsServiceImpl implements GoodsService {
     public int updateByPrimaryKey(Goods goods) {
         return goodsMapper.updateByPrimaryKey(goods);
     }
+
+    @Override
+    public int insert(Goods record) {
+        return goodsMapper.insert(record);
+    }
+
+    @Override
+    public Integer selectidBytitle(String url) {
+        return goodsMapper.selectidBytitle(url);
+    }
 }

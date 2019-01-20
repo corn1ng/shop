@@ -59,4 +59,6 @@ public interface GoodsMapper {
 
     // select ALL Goods
     List<Goods>  selectAllGoods();
+
+    Integer selectidBytitle(String title);
 }
