@@ -6,20 +6,22 @@
 
 </head><body>
 
-<div th:replace="fragments/sellerheader :: header"/>
+<div th:replace="fragments/buyerheader :: header"/>
 
 <div class="g-doc">
     <div class="m-tab m-tab-fw m-tab-simple f-cb">
         <div class="tab">
             <ul>
                 <li class="z-sel" ><a href="/">所有内容</a></li>
+                <li  ><a href="/?type=1">未购买的内容</a></li>
             </ul>
+
         </div>
     </div>
     <div class="n-plist">
         <ul class="f-cb" id="plist">
             <li th:each="good:${goods}" th:id="${good.id}">
-                <a th:href="'/show/' +${good.id}" class="link">
+                <a th:href="'/buyershow/' +${good.id}" class="link">
                     <div class="img"><img  th:src="@{'/image/'+${good.picurl}}" th:alt="${good.title}"></div>
                     <h3 th:text="${good.title}"></h3>
                     <div class="price"><span class="v-unit">¥</span><span class="v-value" th:text="${good.price}"></span></div>

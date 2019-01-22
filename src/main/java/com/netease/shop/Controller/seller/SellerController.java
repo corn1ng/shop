@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-public class HomeController {
+public class SellerController {
 
     @Resource
     private GoodsService goodsService;
@@ -76,8 +76,8 @@ public class HomeController {
 
     // 上传照片
     @RequestMapping(value="/upload", method = RequestMethod.POST)
-    public @ResponseBody
-    String uploadImg(@RequestParam("file") MultipartFile file, HttpServletRequest request)
+    @ResponseBody
+    public String uploadImg(@RequestParam("file") MultipartFile file, HttpServletRequest request)
     {
         String contentType = file.getContentType();
         String fileName = file.getOriginalFilename();

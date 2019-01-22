@@ -35,3 +35,50 @@ function imageupload()
 
 
 }
+
+function addonegood()
+{
+    var v =$("#allNum").text()
+
+    v++;
+
+    $("#allNum").text(v)
+}
+
+function minusonegood()
+{
+    var v =$("#allNum").text()
+    if((v-1)<1)
+    {
+
+    }
+    else
+    {
+        v--;
+    }
+
+    $("#allNum").text(v)
+}
+
+function addcart(goodid)
+{
+
+
+    var number =$("#allNum").text()
+
+    var data ={"goodid":goodid,"number":number};
+    $.ajax(
+        {
+            type:"post",
+            url:"/addcart",
+            data:data,
+
+            success:function(data){
+                console.log(data);
+
+            },error:function(e){
+                console.log(e);
+            }
+        }
+    )
+}
