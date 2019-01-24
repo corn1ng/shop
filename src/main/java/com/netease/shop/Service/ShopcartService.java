@@ -17,4 +17,7 @@ public interface ShopcartService  {
     Shopcart selectByPrimaryKey(ShopcartKey key);
 
     List<ShopcartTo> selectbyuser(Integer id);
+
+    int deleteByPrimaryKey(ShopcartKey key);
+
 }

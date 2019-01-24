@@ -82,3 +82,44 @@ function addcart(goodid)
         }
     )
 }
+
+function submitorder()
+{
+
+    var data=[];
+    $('#goodTable tr').each(function(i){
+        if(i!=0)
+        {
+            var tdArr = $(this).find("td");
+            var gooid =tdArr.eq(0).attr("id");
+            var goodcount =tdArr.eq(1).find("span").eq(1).text();
+            var onegood ={}
+            onegood['goodid']=parseInt(gooid);
+            onegood['number']=parseInt(goodcount);
+            data.push(onegood)
+        }
+    });
+    console.log(data)
+
+    $.ajax(
+        {
+            url:"/submitorder",
+
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+
+
+            success:function(){
+                alert("buy success");
+                window.location.href = '/carthome';
+            },
+            error:function()
+            {
+                alert("error");
+            }
+
+
+    })
+
+}

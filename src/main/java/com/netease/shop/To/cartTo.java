@@ -7,13 +7,13 @@ public class cartTo {
 
     private Integer number;
 
-    public cartTo() {
-    }
-
-    public cartTo(Integer goodid, Integer number) {
-        this.goodid = goodid;
-        this.number = number;
-    }
+//    public cartTo() {
+//    }
+//
+//    public cartTo(Integer goodid, Integer number) {
+//        this.goodid = goodid;
+//        this.number = number;
+//    }
 
     public Integer getGoodid() {
         return goodid;

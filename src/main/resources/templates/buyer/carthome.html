@@ -13,22 +13,26 @@
     <div class="m-tab m-tab-fw m-tab-simple f-cb" >
         <h2>已添加到购物车的内容</h2>
     </div>
-    <table id="newTable" class="m-table m-table-row n-table g-b3">
-        <tbody><tr><th>内容名称</th><th>数量</th><th>单价</th></tr>
+    <table id="goodTable" class="m-table m-table-row n-table g-b3">
+        <tbody><th>内容名称</th><th>数量</th><th>单价</th><th>操作</th>
 
-        <tr th:each="c: ${cart}">
-            <td th:text="${c.goodname}"></td>
+        <tr th:each="c: ${cart}" id="go">
+            <td th:text="${c.goodname}" th:id="${c.id}"></td>
             <td>
                 <span class="lessNum"><button style="width: 20px" onclick="minusonegood()">-</button></span>
                 <span class="totalNum" id="allNum" th:text="${c.goodcount}"></span>
-                <span id="thisId">59</span>
                 <span class="moreNum"><button style="width: 20px" onclick="addonegood()">+</button></span>
             </td>
-            <td th:text="${c.priceper}">11111</td></tr>
+            <td th:text="${c.priceper}">11111</td>
+            <td><a th:href="'/delete/'+${c.id}">删除</a></td>
+        </tr>
         </tbody>
     </table>
-    <div id="act-btn"><button class="u-btn u-btn-primary" id="back">退出</button>
-        <button class="u-btn u-btn-primary" id="Account">购买</button></div>
+
+    <div id="act-btn">
+        <button class="u-btn u-btn-primary" id="back">退出</button>
+        <button class="u-btn u-btn-primary" id="Account" onclick="submitorder()">购买</button>
+    </div>
 </div>
 
 <div th:replace="fragments/footer :: footer"/>

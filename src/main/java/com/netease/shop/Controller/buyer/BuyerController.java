@@ -1,20 +1,25 @@
 package com.netease.shop.Controller.buyer;
 
 
+
+import com.alibaba.fastjson.JSON;
 import com.netease.shop.Entity.Goods;
+import com.netease.shop.Entity.Orderinfo;
 import com.netease.shop.Entity.Shopcart;
+import com.netease.shop.Entity.ShopcartKey;
 import com.netease.shop.Service.GoodsService;
+import com.netease.shop.Service.OrderinfoService;
 import com.netease.shop.Service.ShopcartService;
 import com.netease.shop.To.ShopcartTo;
 import com.netease.shop.To.cartTo;
+
+import com.netease.shop.To.orderTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -25,6 +30,9 @@ public class BuyerController {
 
     @Resource
     private ShopcartService shopcartService;
+
+    @Resource
+    private OrderinfoService orderinfoService;
 
 
     @RequestMapping(value = "/buyerHome")
@@ -71,13 +79,13 @@ public class BuyerController {
             shopcart.setPurchasedamount(newcount);
             shopcartService.updateByPrimaryKey(shopcart);
         }
-        System.out.println(cart.getGoodid()+"   "+cart.getNumber());
+
 
         return "add success";
     }
 
 
-    @RequestMapping(value = "carthome")
+    @RequestMapping(value = "/carthome")
     public String carthome(Model model)
     {
         //TODO
@@ -85,5 +93,62 @@ public class BuyerController {
         List<ShopcartTo> shopcarts =shopcartService.selectbyuser(userid);
         model.addAttribute("cart",shopcarts);
         return "buyer/carthome";
+    }
+
+    @RequestMapping(value = "/delete/{id}")
+    public String deletecartgood(@PathVariable("id")Integer id)
+    {
+        // TODO
+        Integer userid =1 ;
+        ShopcartKey key = new ShopcartKey();
+        key.setGoodsId(id);
+        key.setUserId(userid);
+        shopcartService.deleteByPrimaryKey(key);
+        return "redirect:/carthome";
+
+    }
+
+    @RequestMapping(value = "/submitorder",method = RequestMethod.POST)
+    @ResponseBody
+    public String submitorder(@RequestBody String data)
+    {
+
+        //TODO
+        Integer userid =1;
+        List<cartTo> carts = JSON.parseArray(data, cartTo.class);
+        for(int i=0;i<carts.size();i++)
+        {
+            Orderinfo orderinfo =new Orderinfo();
+            orderinfo.setUserid(userid);
+            orderinfo.setGoodsid(carts.get(i).getGoodid());
+            orderinfo.setUserid(1);
+            long time =System.currentTimeMillis();
+            orderinfo.setOrdertime(new Date(time));
+            orderinfo.setPurchasedamount(carts.get(i).getNumber());
+            Goods g = goodsService.selectByPrimaryKey(carts.get(i).getGoodid());
+            Integer price =g.getPrice()*carts.get(i).getNumber();
+            orderinfo.setPricesum(price);
+            orderinfo.setPurchasedunitprice(g.getPrice());
+            orderinfoService.insert(orderinfo);
+            ShopcartKey key =new ShopcartKey(userid,carts.get(i).getGoodid());
+            shopcartService.deleteByPrimaryKey(key);
+        }
+        return "success";
+    }
+
+    @RequestMapping(value = "/account",method = RequestMethod.GET)
+    public String account(Model model)
+    {
+        // TODO
+        Integer userid =1;
+        List<orderTo> orders =  orderinfoService.selectbyuser(userid);
+        Integer zong=0;
+        for(int i=0;i<orders.size();i++)
+        {
+            zong =zong+orders.get(i).getPrice();
+        }
+        model.addAttribute("zong",zong);
+        model.addAttribute("orders",orders);
+        return "buyer/orderinfo";
     }
 }

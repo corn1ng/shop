@@ -2,6 +2,8 @@ package com.netease.shop.To;
 
 public class ShopcartTo {
 
+    private Integer id;
+
     private String goodname;
 
     private Integer goodcount;
@@ -15,6 +17,14 @@ public class ShopcartTo {
         this.goodname = goodname;
         this.goodcount = goodcount;
         this.priceper = priceper;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getGoodname() {

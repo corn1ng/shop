@@ -55,11 +55,17 @@ public class ShopcartServiceImpl implements ShopcartService {
              Goods good  =goodsMapper.selectByPrimaryKey(s.getGoodsId());
              Integer price =  good.getPrice();
              String goodname =good.getTitle();
+             to.setId(s.getGoodsId());
              to.setGoodname(goodname);
              to.setGoodcount(s.getPurchasedamount());
              to.setPriceper(price);
              shopcartTos.add(to);
          }
          return shopcartTos;
+    }
+
+    @Override
+    public int deleteByPrimaryKey(ShopcartKey key) {
+        return shopcartMapper.deleteByPrimaryKey(key);
     }
 }
