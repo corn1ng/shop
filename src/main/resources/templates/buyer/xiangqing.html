@@ -14,7 +14,11 @@
         <div class="cnt">
             <h2 th:text="${good.title}"></h2>
             <p class="summary" th:text="${good.abstra}"></p>
-            <div class="num">购买数量：<span id="plusNum" class="lessNum"><button style="width: 20px" onclick="minusonegood()">-</button></span> <span class="totalNum" id="allNum" >1</span> <span id="addNum" class="moreNum"><button style="width: 20px" onclick="addonegood()">+</button></span></div>
+            <div class="num">购买数量：
+                <span id="plusNum" class="lessNum"><button style="width: 20px" onclick="minusonegood()">-</button></span>
+                <span class="totalNum" id="allNum" >1</span>
+                <span id="addNum" class="moreNum"><button style="width: 20px" onclick="addonegood()">+</button></span>
+            </div>
             <div class="price">
                 <span class="v-unit">¥</span><span class="v-value" th:text="${good.price}"></span>
             </div>

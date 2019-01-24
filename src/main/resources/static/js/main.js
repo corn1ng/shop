@@ -74,7 +74,7 @@ function addcart(goodid)
             data:data,
 
             success:function(data){
-                console.log(data);
+                alert(data);
 
             },error:function(e){
                 console.log(e);

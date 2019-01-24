@@ -2,7 +2,10 @@ package com.netease.shop.Controller.buyer;
 
 
 import com.netease.shop.Entity.Goods;
+import com.netease.shop.Entity.Shopcart;
 import com.netease.shop.Service.GoodsService;
+import com.netease.shop.Service.ShopcartService;
+import com.netease.shop.To.ShopcartTo;
 import com.netease.shop.To.cartTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +22,9 @@ public class BuyerController {
 
     @Resource
     private GoodsService goodsService;
+
+    @Resource
+    private ShopcartService shopcartService;
 
 
     @RequestMapping(value = "/buyerHome")
@@ -43,8 +49,41 @@ public class BuyerController {
     @ResponseBody
     public String addcart(cartTo cart)
     {
+        //TODO
+        Integer userid = 1;
+
+        Shopcart shopcart =new Shopcart();
+        shopcart.setUserId(userid);
+        shopcart.setGoodsId(cart.getGoodid());
+
+
+        Integer c = shopcartService.selectCount(shopcart);
+        if(c==0)
+        {
+            shopcart.setPurchasedamount(cart.getNumber());
+            shopcartService.insert(shopcart);
+        }
+        else
+        {
+
+            Integer yuan  = shopcartService.selectByPrimaryKey(shopcart).getPurchasedamount();
+            Integer newcount =yuan + cart.getNumber();
+            shopcart.setPurchasedamount(newcount);
+            shopcartService.updateByPrimaryKey(shopcart);
+        }
         System.out.println(cart.getGoodid()+"   "+cart.getNumber());
 
-        return null;
+        return "add success";
+    }
+
+
+    @RequestMapping(value = "carthome")
+    public String carthome(Model model)
+    {
+        //TODO
+        Integer userid = 1;
+        List<ShopcartTo> shopcarts =shopcartService.selectbyuser(userid);
+        model.addAttribute("cart",shopcarts);
+        return "buyer/carthome";
     }
 }
