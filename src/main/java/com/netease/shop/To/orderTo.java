@@ -14,11 +14,23 @@ public class orderTo {
 
     private Integer count;
 
+    // 单价
     private Integer price;
 
     private Integer userid;
 
+    private Integer zongjia;
+
     public orderTo() {
+    }
+
+
+    public Integer getZongjia() {
+        return zongjia;
+    }
+
+    public void setZongjia(Integer zongjia) {
+        this.zongjia = zongjia;
     }
 
     public Integer getUserid() {

@@ -13,12 +13,15 @@ import com.netease.shop.Service.ShopcartService;
 import com.netease.shop.To.ShopcartTo;
 import com.netease.shop.To.cartTo;
 
+import com.netease.shop.To.goodTo;
 import com.netease.shop.To.orderTo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,10 +41,32 @@ public class BuyerController {
     @RequestMapping(value = "/buyerHome")
     public String test(Model model)
     {
-
-        List<Goods> goods =goodsService.selectAllGoods();
+        // TODO
+        Integer userid =1;
+        List<goodTo> goods =goodsService.selectAllGoodsBuy(userid);
         model.addAttribute("goods",goods);
         return "buyer/home";
+    }
+
+    @RequestMapping(value = "/notbuy")
+    public String notbuy(Model model)
+    {
+        // TODO
+        Integer userid =1;
+        List<goodTo> goods =goodsService.selectAllGoodsBuy(userid);
+        List<Goods> result =new ArrayList<>();
+        for(goodTo to:goods)
+        {
+            if(to.getIsbuy()==0)
+            {
+                Goods g =new Goods();
+                BeanUtils.copyProperties(to,g);
+                result.add(g);
+            }
+        }
+
+        model.addAttribute("goods",result);
+        return "buyer/notbuy";
     }
 
     @RequestMapping(value = "/buyershow/{id}")
@@ -145,7 +170,7 @@ public class BuyerController {
         Integer zong=0;
         for(int i=0;i<orders.size();i++)
         {
-            zong =zong+orders.get(i).getPrice();
+            zong =zong+orders.get(i).getZongjia();
         }
         model.addAttribute("zong",zong);
         model.addAttribute("orders",orders);

@@ -3,6 +3,7 @@ package com.netease.shop.Controller.seller;
 
 import com.netease.shop.Entity.Goods;
 import com.netease.shop.Service.GoodsService;
+import com.netease.shop.To.goodTo;
 import com.netease.shop.Util.FileUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,7 @@ public class SellerController {
     public String test(Model model)
     {
 
-        List<Goods> goods =goodsService.selectAllGoods();
+        List<goodTo> goods =goodsService.sellerSelectAllGoodsBuy();
         model.addAttribute("goods",goods);
         return "seller/home";
     }

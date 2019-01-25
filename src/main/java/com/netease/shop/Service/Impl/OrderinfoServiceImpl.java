@@ -43,6 +43,7 @@ public class OrderinfoServiceImpl implements OrderinfoService {
             to.setPicurl(goods.getPicurl());
 
             to.setPrice(goods.getPrice());
+            to.setZongjia(goods.getPrice()*list.get(i).getPurchasedamount());
             to.setTime(goods.getCreatetime());
             to.setTitle(goods.getTitle());
             re.add(to);
