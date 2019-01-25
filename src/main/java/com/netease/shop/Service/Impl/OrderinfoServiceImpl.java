@@ -6,6 +6,7 @@ import com.netease.shop.Mapper.GoodsMapper;
 import com.netease.shop.Mapper.OrderinfoMapper;
 import com.netease.shop.Service.OrderinfoService;
 import com.netease.shop.To.orderTo;
+import com.netease.shop.To.showTo;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -49,5 +50,10 @@ public class OrderinfoServiceImpl implements OrderinfoService {
             re.add(to);
         }
         return re;
+    }
+
+    @Override
+    public Orderinfo selectByGoodAndUser(showTo to) {
+        return orderinfoMapper.selectByGoodAndUser(to);
     }
 }

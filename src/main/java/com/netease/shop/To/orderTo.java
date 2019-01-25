@@ -21,9 +21,28 @@ public class orderTo {
 
     private Integer zongjia;
 
+    private String abstra;
+
+    private String content;
+
     public orderTo() {
     }
 
+    public String getAbstra() {
+        return abstra;
+    }
+
+    public void setAbstra(String abstra) {
+        this.abstra = abstra;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public Integer getZongjia() {
         return zongjia;

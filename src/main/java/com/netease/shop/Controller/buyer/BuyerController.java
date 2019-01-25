@@ -1,7 +1,5 @@
 package com.netease.shop.Controller.buyer;
 
-
-
 import com.alibaba.fastjson.JSON;
 import com.netease.shop.Entity.Goods;
 import com.netease.shop.Entity.Orderinfo;
@@ -10,11 +8,8 @@ import com.netease.shop.Entity.ShopcartKey;
 import com.netease.shop.Service.GoodsService;
 import com.netease.shop.Service.OrderinfoService;
 import com.netease.shop.Service.ShopcartService;
-import com.netease.shop.To.ShopcartTo;
-import com.netease.shop.To.cartTo;
+import com.netease.shop.To.*;
 
-import com.netease.shop.To.goodTo;
-import com.netease.shop.To.orderTo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,10 +67,31 @@ public class BuyerController {
     @RequestMapping(value = "/buyershow/{id}")
     public String xiangqing(@PathVariable("id")Integer id, Model model)
     {
-
+        // TODO
+        Integer userid =1;
         Goods g = goodsService.selectByPrimaryKey(id);
-        model.addAttribute("good",g);
-        return "buyer/xiangqing";
+        showTo to =new showTo();
+        to.setGoodid(id);
+        to.setUserid(userid);
+        Orderinfo orderinfo = orderinfoService.selectByGoodAndUser(to);
+        if(orderinfo==null)
+        {
+            model.addAttribute("good",g);
+            return "buyer/notbuyxiangqing";
+        }
+        else
+        {
+            orderTo o  =new orderTo();
+            o.setTitle(g.getTitle());
+            o.setPrice(orderinfo.getPurchasedunitprice());
+            o.setPicurl(g.getPicurl());
+            o.setAbstra(g.getAbstra());
+            o.setContent(g.getContent());
+            o.setCount(orderinfo.getPurchasedamount());
+            model.addAttribute("good",o);
+            return "buyer/xiangqing";
+        }
+
     }
 
     @RequestMapping(value = "/addcart")
