@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
+@RequestMapping("/s")
 public class SellerController {
 
     @Resource
@@ -52,7 +53,7 @@ public class SellerController {
     {
         System.out.println("123");
         goodsService.updateByPrimaryKey(goods);
-        return "redirect:sellerHome";
+        return "redirect:s/sellerHome";
 
     }
 

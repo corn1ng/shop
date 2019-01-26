@@ -18,7 +18,7 @@ function imageupload()
     var formData = new FormData($( "#form" )[0]);
     $.ajax({
         type:"post",
-        url:"/upload",
+        url:"/s/upload",
         data:formData,
         cache: false,
         contentType: false,
