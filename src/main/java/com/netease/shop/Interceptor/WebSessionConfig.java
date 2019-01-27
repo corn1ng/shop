@@ -16,6 +16,7 @@ public class WebSessionConfig implements WebMvcConfigurer {
         InterceptorRegistration loginRegistry = registry.addInterceptor(loginInterceptor);
         // 拦截路径
         loginRegistry.addPathPatterns("/s/**");
+        loginRegistry.addPathPatterns("/b/**");
         // 排除路径
         loginRegistry.excludePathPatterns("/c");
         loginRegistry.excludePathPatterns("/login");

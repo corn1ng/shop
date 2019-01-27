@@ -70,7 +70,7 @@ function addcart(goodid)
     $.ajax(
         {
             type:"post",
-            url:"/addcart",
+            url:"/b/addcart",
             data:data,
 
             success:function(data){
@@ -103,7 +103,7 @@ function submitorder()
 
     $.ajax(
         {
-            url:"/submitorder",
+            url:"/b/submitorder",
 
             type: 'POST',
             contentType: 'application/json',
@@ -112,7 +112,7 @@ function submitorder()
 
             success:function(){
                 alert("buy success");
-                window.location.href = '/carthome';
+                window.location.href = '/b/carthome';
             },
             error:function()
             {

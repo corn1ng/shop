@@ -8,12 +8,25 @@
 
 <div th:replace="fragments/buyerheader :: header"/>
 
+<div class="n-support">请使用Chrome、Safari等webkit内核的浏览器！</div><div class="n-head">
+    <div class="g-doc f-cb">
+        <div class="user">
+            买家你好，<span class="name">buyer</span>！<a href="/logout">[退出]</a>
+        </div>
+        <ul class="nav">
+            <li><a href="/b/buyerHome">首页</a></li>
+            <li><a href="/b/account">账务</a></li>
+            <li><a href="/b/carthome">购物车</a></li>
+        </ul>
+    </div>
+</div>
+
 <div class="g-doc">
     <div class="m-tab m-tab-fw m-tab-simple f-cb">
         <div class="tab">
             <ul>
-                <li><a href="/buyerHome">所有内容</a></li>
-                <li class="z-sel"><a href="/notbuy">未购买的内容</a></li>
+                <li><a href="/b/buyerHome">所有内容</a></li>
+                <li class="z-sel"><a href="/b/notbuy">未购买的内容</a></li>
             </ul>
 
         </div>
@@ -21,7 +34,7 @@
     <div class="n-plist">
         <ul class="f-cb" id="plist">
             <li th:each="good:${goods}" th:id="${good.id}">
-                <a th:href="'/buyershow/' +${good.id}" class="link">
+                <a th:href="'/b/buyershow/' +${good.id}" class="link">
                     <div class="img"><img  th:src="@{'/image/'+${good.picurl}}" th:alt="${good.title}"></div>
                     <h3 th:text="${good.title}"></h3>
                     <div class="price"><span class="v-unit">¥</span><span class="v-value" th:text="${good.price}"></span></div>

@@ -1,26 +1,27 @@
 package com.netease.shop.Controller.buyer;
 
 import com.alibaba.fastjson.JSON;
-import com.netease.shop.Entity.Goods;
-import com.netease.shop.Entity.Orderinfo;
-import com.netease.shop.Entity.Shopcart;
-import com.netease.shop.Entity.ShopcartKey;
+import com.netease.shop.Entity.*;
 import com.netease.shop.Service.GoodsService;
 import com.netease.shop.Service.OrderinfoService;
 import com.netease.shop.Service.ShopcartService;
 import com.netease.shop.To.*;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Controller
+@RequestMapping("b")
 public class BuyerController {
 
     @Resource
@@ -34,7 +35,7 @@ public class BuyerController {
 
 
     @RequestMapping(value = "/buyerHome")
-    public String test(Model model)
+    public String buyerhome(Model model)
     {
         // TODO
         Integer userid =1;
@@ -44,9 +45,10 @@ public class BuyerController {
     }
 
     @RequestMapping(value = "/notbuy")
-    public String notbuy(Model model)
+    public String notbuy(Model model, HttpServletRequest request)
     {
-        // TODO
+//        User user = (User) request.getSession().getAttribute("user");
+//        model.addAttribute("uname",user.getUsername());
         Integer userid =1;
         List<goodTo> goods =goodsService.selectAllGoodsBuy(userid);
         List<Goods> result =new ArrayList<>();
@@ -145,7 +147,7 @@ public class BuyerController {
         key.setGoodsId(id);
         key.setUserId(userid);
         shopcartService.deleteByPrimaryKey(key);
-        return "redirect:/carthome";
+        return "redirect:/b/carthome";
 
     }
 
