@@ -1,7 +1,9 @@
-package com.netease.shop.Controller.seller;
+package com.netease.shop.Controller.business;
 
 
+import com.netease.shop.CommonMethod;
 import com.netease.shop.Entity.Goods;
+import com.netease.shop.Entity.User;
 import com.netease.shop.Service.GoodsService;
 import com.netease.shop.To.goodTo;
 import com.netease.shop.Util.FileUtil;
@@ -22,26 +24,30 @@ public class SellerController {
     private GoodsService goodsService;
 
     @RequestMapping(value = "/sellerHome")
-    public String test(Model model)
+    public String test(Model model,HttpServletRequest request)
     {
-
+        User user =CommonMethod.getssion(request);
+        model.addAttribute("uname",user.getUsername());
         List<goodTo> goods =goodsService.sellerSelectAllGoodsBuy();
         model.addAttribute("goods",goods);
         return "seller/home";
     }
 
     @RequestMapping(value = "/show/{id}")
-    public String xiangqing(@PathVariable("id")Integer id, Model model)
+    public String xiangqing(@PathVariable("id")Integer id, Model model,HttpServletRequest request)
     {
-
+        User user = CommonMethod.getssion(request);
+        model.addAttribute("uname",user.getUsername());
         Goods g = goodsService.selectByPrimaryKey(id);
         model.addAttribute("good",g);
         return "seller/xiangqing";
     }
 
     @RequestMapping(value = "/edit/{id}" ,method = RequestMethod.GET)
-    public String edit(@PathVariable("id")Integer id, Model model)
+    public String edit(@PathVariable("id")Integer id, Model model,HttpServletRequest request)
     {
+        User user = CommonMethod.getssion(request);
+        model.addAttribute("uname",user.getUsername());
 
         Goods g = goodsService.selectByPrimaryKey(id);
         model.addAttribute("good",g);
@@ -58,19 +64,23 @@ public class SellerController {
     }
 
     @RequestMapping(value = "/newgood",method = RequestMethod.GET)
-    public String newgood()
+    public String newgood(Model model,HttpServletRequest request)
     {
+        User user = CommonMethod.getssion(request);
+        model.addAttribute("uname",user.getUsername());
         return "seller/newgood";
     }
 
 
     @RequestMapping(value = "/newgood",method = RequestMethod.POST)
-    public String newgoodpost(Goods goods,Model model)
+    public String newgoodpost(Goods goods,Model model,HttpServletRequest request)
     {
         String title =goods.getTitle();
         goodsService.insert(goods);
         Integer id = goodsService.selectidBytitle(title);
         model.addAttribute("id",id);
+        User user = CommonMethod.getssion(request);
+        model.addAttribute("uname",user.getUsername());
         System.out.println(id);
         return "seller/publishsuccess";
     }

@@ -1,6 +1,7 @@
-package com.netease.shop.Controller.buyer;
+package com.netease.shop.Controller.business;
 
 import com.alibaba.fastjson.JSON;
+import com.netease.shop.CommonMethod;
 import com.netease.shop.Entity.*;
 import com.netease.shop.Service.GoodsService;
 import com.netease.shop.Service.OrderinfoService;
@@ -35,10 +36,12 @@ public class BuyerController {
 
 
     @RequestMapping(value = "/buyerHome")
-    public String buyerhome(Model model)
+    public String buyerhome(Model model,HttpServletRequest request)
     {
-        // TODO
-        Integer userid =1;
+
+        User user = CommonMethod.getssion(request);
+        model.addAttribute("uname",user.getUsername());
+        Integer userid =user.getId();
         List<goodTo> goods =goodsService.selectAllGoodsBuy(userid);
         model.addAttribute("goods",goods);
         return "buyer/home";
@@ -47,9 +50,10 @@ public class BuyerController {
     @RequestMapping(value = "/notbuy")
     public String notbuy(Model model, HttpServletRequest request)
     {
-//        User user = (User) request.getSession().getAttribute("user");
-//        model.addAttribute("uname",user.getUsername());
-        Integer userid =1;
+        User user = CommonMethod.getssion(request);
+        model.addAttribute("uname",user.getUsername());
+        Integer userid =user.getId();
+
         List<goodTo> goods =goodsService.selectAllGoodsBuy(userid);
         List<Goods> result =new ArrayList<>();
         for(goodTo to:goods)
@@ -67,10 +71,11 @@ public class BuyerController {
     }
 
     @RequestMapping(value = "/buyershow/{id}")
-    public String xiangqing(@PathVariable("id")Integer id, Model model)
+    public String xiangqing(@PathVariable("id")Integer id, Model model,HttpServletRequest request)
     {
-        // TODO
-        Integer userid =1;
+        User user = CommonMethod.getssion(request);
+        model.addAttribute("uname",user.getUsername());
+        Integer userid =user.getId();
         Goods g = goodsService.selectByPrimaryKey(id);
         showTo to =new showTo();
         to.setGoodid(id);
@@ -98,11 +103,11 @@ public class BuyerController {
 
     @RequestMapping(value = "/addcart")
     @ResponseBody
-    public String addcart(cartTo cart)
+    public String addcart(cartTo cart,HttpServletRequest request)
     {
-        //TODO
-        Integer userid = 1;
-
+        User user = CommonMethod.getssion(request);
+        Integer userid =user.getId();
+        System.out.println("======"+ userid);
         Shopcart shopcart =new Shopcart();
         shopcart.setUserId(userid);
         shopcart.setGoodsId(cart.getGoodid());
@@ -129,20 +134,24 @@ public class BuyerController {
 
 
     @RequestMapping(value = "/carthome")
-    public String carthome(Model model)
+    public String carthome(Model model,HttpServletRequest request)
     {
-        //TODO
-        Integer userid = 1;
+        User user = CommonMethod.getssion(request);
+        model.addAttribute("uname",user.getUsername());
+        Integer userid =user.getId();
+
+
         List<ShopcartTo> shopcarts =shopcartService.selectbyuser(userid);
         model.addAttribute("cart",shopcarts);
         return "buyer/carthome";
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public String deletecartgood(@PathVariable("id")Integer id)
+    public String deletecartgood(@PathVariable("id")Integer id,Model model,HttpServletRequest request)
     {
-        // TODO
-        Integer userid =1 ;
+        User user = CommonMethod.getssion(request);
+        model.addAttribute("uname",user.getUsername());
+        Integer userid =user.getId();
         ShopcartKey key = new ShopcartKey();
         key.setGoodsId(id);
         key.setUserId(userid);
@@ -153,18 +162,19 @@ public class BuyerController {
 
     @RequestMapping(value = "/submitorder",method = RequestMethod.POST)
     @ResponseBody
-    public String submitorder(@RequestBody String data)
+    public String submitorder(@RequestBody String data,HttpServletRequest request)
     {
 
-        //TODO
-        Integer userid =1;
+        User user = CommonMethod.getssion(request);
+        Integer userid =user.getId();
+        System.out.println("userid===="+userid);
         List<cartTo> carts = JSON.parseArray(data, cartTo.class);
         for(int i=0;i<carts.size();i++)
         {
             Orderinfo orderinfo =new Orderinfo();
-            orderinfo.setUserid(userid);
+
             orderinfo.setGoodsid(carts.get(i).getGoodid());
-            orderinfo.setUserid(1);
+            orderinfo.setUserid(userid);
             long time =System.currentTimeMillis();
             orderinfo.setOrdertime(new Date(time));
             orderinfo.setPurchasedamount(carts.get(i).getNumber());
@@ -180,10 +190,11 @@ public class BuyerController {
     }
 
     @RequestMapping(value = "/account",method = RequestMethod.GET)
-    public String account(Model model)
+    public String account(Model model,HttpServletRequest request)
     {
-        // TODO
-        Integer userid =1;
+        User user = CommonMethod.getssion(request);
+        model.addAttribute("uname",user.getUsername());
+        Integer userid =user.getId();
         List<orderTo> orders =  orderinfoService.selectbyuser(userid);
         Integer zong=0;
         for(int i=0;i<orders.size();i++)

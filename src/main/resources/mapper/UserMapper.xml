@@ -112,8 +112,8 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selecttypeByNameAndPassword" resultType="java.lang.Integer">
-    select type from user where
+  <select id="selectByNameAndPassword" resultType="com.netease.shop.Entity.User">
+    select * from user where
       username = #{username,jdbcType=VARCHAR} and
       password = #{password,jdbcType=VARCHAR}
 

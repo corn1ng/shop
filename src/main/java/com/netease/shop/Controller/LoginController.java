@@ -30,9 +30,11 @@ public class LoginController {
     @RequestMapping(value = "verfify",method = RequestMethod.POST)
     public String verify(Model model, User user, HttpServletRequest request)
     {
-        request.getSession().setAttribute("user",user);
-        Integer type = userService.selecttypeByNameAndPassword(user);
-        if(type==1)
+
+        User user1 = userService.selectByNameAndPassword(user);
+        System.out.println("======="+user1.getId());
+        request.getSession().setAttribute("user",user1);
+        if(user1.getType()==1)
         {
             return "redirect:/b/buyerHome";
         }

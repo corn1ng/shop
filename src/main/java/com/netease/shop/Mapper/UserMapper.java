@@ -54,5 +54,5 @@ public interface UserMapper {
      */
     int updateByPrimaryKey(User record);
 
-    int selecttypeByNameAndPassword(User user);
+    User selectByNameAndPassword(User user);
 }
