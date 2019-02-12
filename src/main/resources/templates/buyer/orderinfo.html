@@ -35,8 +35,8 @@
         <tbody>
 
         <tr th:each="o : ${orders}">
-            <td><a href="'/b/show?id=33"><img th:src="@{'/image/'+${o.picurl}}" alt=""></a></td>
-            <td><h4><a href="/b/show?id=33" th:text="${o.title}"></a></h4></td>
+            <td><a ><img th:src="@{'/image/'+${o.picurl}}" alt=""></a></td>
+            <td><h4><a  th:text="${o.title}"></a></h4></td>
             <td><span class="v-time" th:text="${o.time}"></span></td>
             <td><span class="v-num" th:text="${o.count}"></span></td>
             <td><span class="v-unit">¥</span><span class="value" th:text="${o.price}"></span></td>
