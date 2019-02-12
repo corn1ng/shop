@@ -118,8 +118,6 @@ function submitorder()
             {
                 alert("error");
             }
-
-
     })
 
 }

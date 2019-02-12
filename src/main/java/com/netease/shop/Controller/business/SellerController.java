@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.net.URL;
 import java.util.List;
 
 @Controller
@@ -64,11 +66,21 @@ public class SellerController {
     }
 
     @RequestMapping(value = "/editSubmit" ,method = RequestMethod.POST)
-    public String edit(Goods goods)
+    public String edit(@RequestParam("webpicurl")String url,Goods goods)
     {
-        System.out.println("123");
+        if(url!=null)
+        {
+
+            try {
+                String name =FileUtil.downloadpic(url);
+                goods.setPicurl(name);
+
+            }catch (Exception ignored)
+            {
+            }
+        }
         goodsService.updateByPrimaryKey(goods);
-        return "redirect:s/sellerHome";
+        return "redirect:sellerHome";
 
     }
 
@@ -82,15 +94,25 @@ public class SellerController {
 
 
     @RequestMapping(value = "/newgood",method = RequestMethod.POST)
-    public String newgoodpost(Goods goods,Model model,HttpServletRequest request)
+    public String newgoodpost(@RequestParam("webpicurl")String url, Goods goods,Model model,HttpServletRequest request)
     {
+        if(url!=null)
+        {
+
+            try {
+                String name =FileUtil.downloadpic(url);
+                goods.setPicurl(name);
+
+            }catch (Exception ignored)
+            {
+            }
+        }
         String title =goods.getTitle();
         goodsService.insert(goods);
         Integer id = goodsService.selectidBytitle(title);
         model.addAttribute("id",id);
         User user = CommonMethod.getssion(request);
         model.addAttribute("uname",user.getUsername());
-        System.out.println(id);
         return "seller/publishsuccess";
     }
 
