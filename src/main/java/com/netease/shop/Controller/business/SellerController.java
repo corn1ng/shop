@@ -68,9 +68,8 @@ public class SellerController {
     @RequestMapping(value = "/editSubmit" ,method = RequestMethod.POST)
     public String edit(@RequestParam("webpicurl")String url,Goods goods)
     {
-        if(url!=null)
+        if(!"".equals(url))
         {
-
             try {
                 String name =FileUtil.downloadpic(url);
                 goods.setPicurl(name);
@@ -96,7 +95,7 @@ public class SellerController {
     @RequestMapping(value = "/newgood",method = RequestMethod.POST)
     public String newgoodpost(@RequestParam("webpicurl")String url, Goods goods,Model model,HttpServletRequest request)
     {
-        if(url!=null)
+        if(!"".equals(url))
         {
 
             try {
