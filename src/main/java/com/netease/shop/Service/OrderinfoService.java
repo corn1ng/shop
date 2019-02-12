@@ -14,4 +14,6 @@ public interface OrderinfoService {
     List<orderTo> selectbyuser(Integer userid);
 
     Orderinfo selectByGoodAndUser(showTo to);
+
+    Integer selectSellAmount(Integer goodsid);
 }

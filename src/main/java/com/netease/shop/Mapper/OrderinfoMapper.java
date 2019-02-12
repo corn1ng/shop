@@ -63,4 +63,8 @@ public interface OrderinfoMapper {
 
     List<Integer> sellerSelectgoodlist();
     Orderinfo selectByGoodAndUser(showTo to);
+
+    Integer selectSellAmount(Integer goodsid);
+
+
 }

@@ -29,6 +29,7 @@ public class SellerController {
         User user =CommonMethod.getssion(request);
         model.addAttribute("uname",user.getUsername());
         List<goodTo> goods =goodsService.sellerSelectAllGoodsBuy();
+
         model.addAttribute("goods",goods);
         return "seller/home";
     }
@@ -52,6 +53,14 @@ public class SellerController {
         Goods g = goodsService.selectByPrimaryKey(id);
         model.addAttribute("good",g);
         return "seller/editgood";
+    }
+
+    @RequestMapping(value = "/deletegoods",method = RequestMethod.POST)
+    @ResponseBody
+    public String deletegoods(@RequestBody Integer id)
+    {
+        goodsService.deleteByPrimaryKey(id);
+        return "success";
     }
 
     @RequestMapping(value = "/editSubmit" ,method = RequestMethod.POST)

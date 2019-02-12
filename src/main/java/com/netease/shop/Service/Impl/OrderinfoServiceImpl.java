@@ -45,7 +45,7 @@ public class OrderinfoServiceImpl implements OrderinfoService {
 
             to.setPrice(goods.getPrice());
             to.setZongjia(goods.getPrice()*list.get(i).getPurchasedamount());
-            to.setTime(goods.getCreatetime());
+            to.setTime(list.get(i).getNowtime());
             to.setTitle(goods.getTitle());
             re.add(to);
         }
@@ -55,5 +55,10 @@ public class OrderinfoServiceImpl implements OrderinfoService {
     @Override
     public Orderinfo selectByGoodAndUser(showTo to) {
         return orderinfoMapper.selectByGoodAndUser(to);
+    }
+
+    @Override
+    public Integer selectSellAmount(Integer goodsid) {
+        return orderinfoMapper.selectSellAmount(goodsid);
     }
 }

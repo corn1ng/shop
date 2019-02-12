@@ -22,4 +22,6 @@ public interface GoodsService {
 
     List<goodTo> sellerSelectAllGoodsBuy();
 
+    int deleteByPrimaryKey(Integer id);
+
 }

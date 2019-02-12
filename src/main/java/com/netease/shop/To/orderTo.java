@@ -8,7 +8,7 @@ public class orderTo {
 
     private String picurl;
 
-    private Date time;
+    private String time;
 
     private String title;
 
@@ -77,11 +77,11 @@ public class orderTo {
         this.picurl = picurl;
     }
 
-    public Date getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

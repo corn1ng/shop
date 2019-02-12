@@ -123,3 +123,22 @@ function submitorder()
     })
 
 }
+
+function deletegoods(id)
+{
+    $.ajax(
+        {
+            url:"/s/deletegoods",
+            contentType: 'application/json',
+            type: 'POST',
+            data: id,
+            success:function(){
+                alert("delete success");
+                window.location.href = '/s/sellerHome';
+            },
+            error:function()
+            {
+                alert("error");
+            }
+        })
+}

@@ -43,6 +43,7 @@ public class GoodsServiceImpl implements GoodsService {
             if(goodlist.contains(list.get(i).getId()))
             {
                 to.setIsbuy(1);
+                to.setSellnumber(orderinfoMapper.selectSellAmount(list.get(i).getId()));
             }
             else
             {
@@ -53,7 +54,10 @@ public class GoodsServiceImpl implements GoodsService {
         return resultlist;
     }
 
-
+    @Override
+    public int deleteByPrimaryKey(Integer id) {
+        return goodsMapper.deleteByPrimaryKey(id);
+    }
 
 
     @Override

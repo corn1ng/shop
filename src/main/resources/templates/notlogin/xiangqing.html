@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <title>java</title>
+
+</head><body>
+
+<div th:replace="fragments/sellerheader :: header"/>
+
+<div class="n-support">请使用Chrome、Safari等webkit内核的浏览器！</div><div class="n-head">
+    <div class="g-doc f-cb">
+        <div class="user">
+            请<span class="name" ></span>！<a href="/login">[登录]</a>
+        </div>
+        <ul class="nav">
+            <li><a href="/">首页</a></li>
+        </ul>
+    </div>
+</div>
+
+</div><div class="g-doc">
+    <div class="n-show f-cb" id="showContent">
+        <div class="img"><img th:src="@{'/image/'+${good.picurl}}" alt="" ></div>
+        <div class="cnt">
+            <h2 th:text="${good.title}"></h2>
+            <p class="summary" th:text="${good.abstra}"></p>
+            <div class="price">
+                <span class="v-unit">¥</span><span class="v-value" th:text="${good.price}"></span>
+            </div>
+
+        </div>
+    </div>
+    <div class="m-tab m-tab-fw m-tab-simple f-cb">
+        <h2>详细信息</h2>
+    </div>
+    <div class="n-detail" th:text="${good.content}">
+
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>

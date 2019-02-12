@@ -44,4 +44,11 @@ public class LoginController {
         }
     }
 
+    @RequestMapping(value = "/logout")
+    public String loginout()
+    {
+
+        return "redirect:/login";
+    }
+
 }

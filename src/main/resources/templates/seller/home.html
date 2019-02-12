@@ -32,12 +32,27 @@
     <div class="n-plist">
         <ul class="f-cb" id="plist">
             <li th:each="good:${goods}" th:id="${good.id}">
-                <a th:href="'/s/show/' +${good.id}" class="link">
-                    <div class="img"><img  th:src="@{'/image/'+${good.picurl}}" th:alt="${good.title}"></div>
-                    <h3 th:text="${good.title}"></h3>
-                    <div class="price"><span class="v-unit">¥</span><span class="v-value" th:text="${good.price}"></span></div>
-                    <span class="had" th:if="${good.isbuy==1}"><b>已售出</b></span>
-                </a>
+
+                    <a th:href="'/s/show/' +${good.id}" class="link">
+                        <div class="img"><img  th:src="@{'/image/'+${good.picurl}}" th:alt="${good.title}"></div>
+                        <h3 th:text="${good.title}"></h3>
+
+                        <div class="price">
+                            <span class="v-unit">¥</span>
+                            <span class="v-value" th:text="${good.price}"></span>
+                            <span style="float: right" th:if="${good.isbuy==1}">已售出
+                                <b th:text="${good.sellnumber}"></b>
+                            </span>
+
+                            <button style="float: right" th:if="${good.isbuy==0}" th:onclick="'javascript:deletegoods(\''+${good.id}+'\');'">删除</button>
+
+                        </div>
+                        <span class="had" th:if="${good.isbuy==1}"><b>已售出</b></span>
+
+                    </a>
+
+
+
             </li>
         </ul>
     </div>

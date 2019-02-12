@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -175,8 +176,10 @@ public class BuyerController {
 
             orderinfo.setGoodsid(carts.get(i).getGoodid());
             orderinfo.setUserid(userid);
-            long time =System.currentTimeMillis();
-            orderinfo.setOrdertime(new Date(time));
+            //long time =System.currentTimeMillis();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+            System.out.println();// new Date()为获取当前系统时间
+            orderinfo.setNowtime(df.format(new Date()));
             orderinfo.setPurchasedamount(carts.get(i).getNumber());
             Goods g = goodsService.selectByPrimaryKey(carts.get(i).getGoodid());
             Integer price =g.getPrice()*carts.get(i).getNumber();

@@ -71,6 +71,8 @@ public class goodTo extends Goods {
      * @mbggenerated
      */
 
+    private Integer sellnumber;
+
     private Integer isbuy;
 
     public Integer getIsbuy() {
@@ -239,5 +241,13 @@ public class goodTo extends Goods {
      */
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
+    }
+
+    public Integer getSellnumber() {
+        return sellnumber;
+    }
+
+    public void setSellnumber(Integer sellnumber) {
+        this.sellnumber = sellnumber;
     }
 }
